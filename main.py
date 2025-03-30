@@ -1,15 +1,14 @@
 from llama_cpp import Llama
 
-llm = Llama.from_pretrained(
-    repo_id="Qwen/Qwen2-0.5B-Instruct-GGUF",
-    filename="*q8_0.gguf",
-    verbose=False
-)
+# Load the model
+llm = Llama(model_path='./models/gemma-3-4b-it.Q4_K_M.gguf?download=true')
 
-output = llm(
-    "Q: What is the best flavor of icecream? :A", # Prompt
-      max_tokens=2048, # Generate up to 32 tokens, set to None to generate up to the end of the context window
-      stop=["Q:", "\n"], # Stop generating just before the model would generate a new question
-      echo=True # Echo the prompt back in the output
-) # Generate a completion, can also call create_completion
-print(output)
+# Define a prompt
+prompt = "What is the capital of France?"
+
+output = llm(prompt, max_tokens=20, stop=["/n"]) # Increase token limit and set stop sequences
+
+# Extract and print only the response text
+response_text = output.get("choices", [{}])[0].get("text", "").strip()
+print(response_text)
+
