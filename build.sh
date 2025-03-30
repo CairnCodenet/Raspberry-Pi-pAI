@@ -42,4 +42,8 @@ else
   echo "requirements.txt not found. Skipping pip install."
 fi
 
+# Create main files
+touch main.py
+mkdir models
+
 echo "Setup complete!"
