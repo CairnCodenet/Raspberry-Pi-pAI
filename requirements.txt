@@ -1,0 +1,2 @@
+huggingface_hub
+llama_cpp_python
