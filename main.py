@@ -1,14 +1,18 @@
 from llama_cpp import Llama
 
-# Load the model
-llm = Llama(model_path='./models/gemma-3-4b-it.Q4_K_M.gguf?download=true')
+def main():
+    model_path = "models/Llama-3.2-3B-Instruct-Q4_K_S.gguf?download=true"
+    llm = Llama(model_path=model_path, verbose=False)
+    
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in {"exit", "quit"}:
+            print("Exiting...")
+            break
+        
+        response = llm(user_input)["choices"][0]["text"].strip()
+        print(f"AI: {response}")
 
-# Define a prompt
-prompt = "What is the capital of France?"
-
-output = llm(prompt, max_tokens=20, stop=["/n"]) # Increase token limit and set stop sequences
-
-# Extract and print only the response text
-response_text = output.get("choices", [{}])[0].get("text", "").strip()
-print(response_text)
-
+if __name__ == "__main__":
+    main()
+ 
